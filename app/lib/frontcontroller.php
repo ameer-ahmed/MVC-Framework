@@ -33,15 +33,15 @@ class FrontController {
         $controllerActionName = \lcfirst($this->_action) . 'Action';
         $controllerPassedParams = $this->_params;
         if(!\class_exists($controllerClassName)) {
-            $controllerClassName = self::NOT_FOUND_CONTROLLER;
+            $this->_controller = $controllerClassName = self::NOT_FOUND_CONTROLLER;
         }
         $controller = new $controllerClassName();
         if(!\method_exists($controller, $controllerActionName)) {
-            $controllerActionName = self::NOT_FOUND_ACTION;
+            $this->_action = $controllerActionName = self::NOT_FOUND_ACTION;
         }
-        $controller->setController($controllerClassName);
-        $controller->setAction($controllerActionName);
-        $controller->setParams($controllerPassedParams);
+        $controller->setController($this->_controller);
+        $controller->setAction($this->_action);
+        $controller->setParams($this->_params);
         $controller->$controllerActionName();
     }
 }
