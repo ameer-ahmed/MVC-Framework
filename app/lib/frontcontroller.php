@@ -11,7 +11,10 @@ class FrontController {
     private $_action = 'default';
     private $_params = [];
 
-    public function __construct() {
+    private $_template;
+
+    public function __construct(Template $template) {
+        $this->_template = $template;
         $this->_parseURL();
     }
 
@@ -42,6 +45,7 @@ class FrontController {
         $controller->setController($this->_controller);
         $controller->setAction($this->_action);
         $controller->setParams($this->_params);
+        $controller->setTemplate($this->_template);
         $controller->$controllerActionName();
     }
 }
